@@ -51,4 +51,29 @@ public class LogAspect {
         String value = (String) joinPoint.getArgs()[0];
         log.info("Execute method with parameter : " + value);
     }
+
+    @Pointcut("execution(* programmerzamannow.aop.service.*.*(..))")
+    public void pointcutServicePackage(){
+
+    }
+
+    @Pointcut("bean(*Service)")
+    public void pointcutServiceBean(){
+
+    }
+
+    @Pointcut("execution(public * *(..))")
+    public void pointcutPublicMethod(){
+
+    }
+
+    @Pointcut("pointcutServicePackage() && pointcutServiceBean() && pointcutPublicMethod()")
+    public void publicMethodForService(){
+
+    }
+
+    @Before("publicMethodForService()")
+    public void logAllPublicServiceMethod(){
+        log.info("Log for all public service method");
+    }
 }
